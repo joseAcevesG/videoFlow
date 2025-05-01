@@ -1,0 +1,4 @@
+@base_url = http://localhost:4000/api
+
+### test api ###
+GET {{base_url}}

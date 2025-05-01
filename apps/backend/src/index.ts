@@ -1,43 +1,39 @@
 import path from "node:path";
-import type { User } from "@shared/types";
+import cookieParser from "cookie-parser";
 import cors from "cors";
 import express from "express";
 import next from "next";
+import { EnvConfig } from "./config/env.config";
+import connectDB from "./config/mongoose.config";
+import routes from "./routes";
 
-const app = express();
-const dev = process.env.NODE_ENV !== "production";
+const dev = EnvConfig().environment !== "production";
+const port = EnvConfig().port;
 
-app.use(cors());
-app.use(express.json());
-
-app.get("/api/health", (_req, res) => {
-	const user: User = {
-		id: "1",
-		name: "John Doe",
-		email: "johndoe@example.com",
-	};
-	console.log(user);
-	res.json({ status: "ok", user });
+const nextApp = next({
+	dev,
+	dir: path.join(__dirname, "../../../", "frontend"),
 });
-
+const handle = nextApp.getRequestHandler();
 async function startServer() {
 	try {
+		await connectDB();
+		const app = express();
+		app.use(cors());
+		app.use(express.json());
+		app.use(cookieParser());
+		app.use("/api", routes);
+
 		if (!dev) {
-			const nextApp = next({
-				dir: path.join(__dirname, "../../", "frontend"),
-			});
-			const handle = nextApp.getRequestHandler();
-			// All other routes go to Next.js
+			await nextApp.prepare();
 			app.all(/^(?!\/api).*/, (req, res) => {
 				console.log("Request to Next.js");
 				return handle(req, res);
 			});
-			// Prepare Next.js (loads .next, etc.)
-			await nextApp.prepare();
 		}
 
 		// Start the server
-		app.listen(4000, () => {
+		app.listen(port, () => {
 			console.log("> Server is running on http://localhost:4000");
 		});
 	} catch (error) {

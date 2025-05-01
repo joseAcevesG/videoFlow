@@ -1,16 +1,15 @@
 "use client";
-import type { User } from "@shared/types";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-	const [user, setUser] = useState<User>();
+	const [appName, setAppName] = useState<string>();
 
 	useEffect(() => {
-		fetch("/api/health")
+		fetch("/api")
 			.then((res) => res.json())
 			.then((data) => {
-				setUser(data.user);
+				setAppName(data.name);
 			});
 	}, []);
 	return (
@@ -62,8 +61,7 @@ export default function Home() {
 						Read our docs
 					</a>
 				</div>
-				{user && <p>{user.name}</p>}
-				{user && <p>{user.email}</p>}
+				{appName && <h2>{appName}</h2>}
 			</main>
 			<footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
 				<a

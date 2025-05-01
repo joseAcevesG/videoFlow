@@ -1,4 +1,5 @@
 import { Router } from "express";
+import authRoutes from "./auth";
 
 const router: Router = Router();
 
@@ -6,5 +7,7 @@ const router: Router = Router();
 router.get("/", (_req, res) => {
 	res.json({ name: "VideoFlow" });
 });
+
+router.use("/auth", authRoutes);
 
 export default router;

@@ -10,6 +10,9 @@ const envSchema = z.object({
 		.default("development"),
 	PORT: z.string().default("4000"),
 	DB_URL: z.string().min(1, "DB_URL is required"),
+	STYTCH_PROJECT_ID: z.string().min(1, "STYTCH_PROJECT_ID is required"),
+	STYTCH_SECRET: z.string().min(1, "STYTCH_SECRET is required"),
+	TOKEN_KEY: z.string().min(1, "TOKEN_KEY is required"),
 });
 let env: z.infer<typeof envSchema>;
 
@@ -27,6 +30,11 @@ export const EnvConfig = () => {
 		environment: env.NODE_ENV,
 		port: Number.parseInt(env.PORT, 10),
 		dbUrl: env.DB_URL,
+		stytch: {
+			projectId: env.STYTCH_PROJECT_ID,
+			secret: env.STYTCH_SECRET,
+		},
+		tokenKey: env.TOKEN_KEY,
 	} as const;
 
 	return config;

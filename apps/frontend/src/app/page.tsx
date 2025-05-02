@@ -3,13 +3,13 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-	const [appName, setAppName] = useState<string>();
+	const [name, setName] = useState<string>();
 
 	useEffect(() => {
 		fetch("/api")
 			.then((res) => res.json())
 			.then((data) => {
-				setAppName(data.name);
+				setName(data.message);
 			});
 	}, []);
 	return (
@@ -26,7 +26,7 @@ export default function Home() {
 				<ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
 					<li className="mb-2 tracking-[-.01em]">
 						Get started by editing{" "}
-						<code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
+						<code className="bg-black/[-0.95] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
 							src/app/page.tsx
 						</code>
 						.
@@ -61,7 +61,7 @@ export default function Home() {
 						Read our docs
 					</a>
 				</div>
-				{appName && <h2>{appName}</h2>}
+				{name && <p>{name}</p>}
 			</main>
 			<footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
 				<a

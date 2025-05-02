@@ -13,7 +13,9 @@ const envSchema = z.object({
 	STYTCH_PROJECT_ID: z.string().min(1, "STYTCH_PROJECT_ID is required"),
 	STYTCH_SECRET: z.string().min(1, "STYTCH_SECRET is required"),
 	TOKEN_KEY: z.string().min(1, "TOKEN_KEY is required"),
+	GEMINI_API_KEY: z.string().min(1, "GEMINI_API_KEY is required"),
 });
+
 let env: z.infer<typeof envSchema>;
 
 try {
@@ -35,6 +37,9 @@ export const EnvConfig = () => {
 			secret: env.STYTCH_SECRET,
 		},
 		tokenKey: env.TOKEN_KEY,
+		gemini: {
+			apiKey: env.GEMINI_API_KEY,
+		},
 	} as const;
 
 	return config;

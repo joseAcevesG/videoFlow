@@ -3,9 +3,11 @@
 @email = 
 @video_id = 
 @note_id = 
+@flashcard_id = 
 
 ### test api ###
 GET {{base_url}}
+
 
 
 ### AUTH ###
@@ -27,6 +29,7 @@ GET {{base_url}}/auth/status
 POST {{base_url}}/auth/logout
 
 
+
 ### VIDEO ###
 ### process video ###
 POST {{base_url}}/video
@@ -42,6 +45,7 @@ Content-Type: application/json
 
 ### get video ###
 GET {{base_url}}/video/{{video_id}}
+
 
 
 ### NOTES ###
@@ -83,3 +87,45 @@ Content-Type: application/json
 
 ### delete a note for specific video of user ###
 DELETE {{base_url}}/video/{{video_id}}/notes/{{note_id}}
+
+
+
+### FLASHCARDS ###
+### get user flashcards for specific video ###
+GET {{base_url}}/video/{{video_id}}/flashcards
+Content-Type: application/json
+
+### get flashcard of specific video of user ###
+GET {{base_url}}/video/{{video_id}}/flashcards/{{flashcard_id}}
+Content-Type: application/json
+
+### create flashcard for specific video of user ###
+POST {{base_url}}/video/{{video_id}}/flashcards
+Content-Type: application/json
+
+{
+    "flashcard": {
+        "front": "What is the capital of France?",
+        "back": "Champs-Élysées"
+    }
+}
+
+### patch a flashcard for specific video of user ###
+PATCH {{base_url}}/video/{{video_id}}/flashcards/{{flashcard_id}}
+Content-Type: application/json
+
+{
+  "back": "Paris"
+}
+
+### update a flashcard for specific video of user ###
+PUT {{base_url}}/video/{{video_id}}/flashcards/{{flashcard_id}}
+Content-Type: application/json
+
+{
+  "front": "What is the capital of France?",
+  "back": "Champs-Élysées"
+}
+
+### delete a flashcard for specific video of user ###
+DELETE {{base_url}}/video/{{video_id}}/flashcards/{{flashcard_id}}

@@ -1,5 +1,5 @@
 import type { GenerateContentResult } from "@google/generative-ai";
-import type { ContentTableItem } from "@shared/types";
+import type { ContentTableItem, VideoPage } from "@shared/types";
 import type { Response } from "express";
 import { Types } from "mongoose";
 import {
@@ -12,7 +12,7 @@ import userModel from "../models/user.model";
 import videoModel from "../models/video.model";
 import type { GeminiResponse, UserRequest } from "../types";
 import StatusCodes from "../types/response-codes";
-import { BadRequestError } from "../utils/errors";
+import { BadRequestError, NotFoundError } from "../utils/errors";
 import { getVideoTitle } from "../utils/get_video_title";
 import { fetchTranscript, formatTranscript } from "../utils/transcript";
 import { validateUserAndVideo } from "../utils/validate_video_and_user";
@@ -138,6 +138,57 @@ Generate the ContentTable JSON based on this transcript.`;
 					.send(StatusCodes.INTERNAL_SERVER_ERROR.message);
 			}
 		}
+	}
+	getVideo(req: UserRequest, res: Response) {
+		const videoId = req.params.videoID as string;
+
+		if (!req.user) {
+			res.status(StatusCodes.UNAUTHORIZED.code).json({
+				message: "User not found",
+			});
+			return;
+		}
+
+		const result = validateUserAndVideo(req.user, videoId);
+		if (!result) {
+			res.status(StatusCodes.NOT_FOUND.code).json({
+				message: "Video not found",
+			});
+			return;
+		}
+		const { userVideo } = result;
+
+		videoModel
+			.findOne({ _id: videoId })
+			.then((video) => {
+				if (!video) {
+					throw new NotFoundError("Video not found");
+				}
+				const videoData: VideoPage = {
+					video: {
+						id: video._id.toString(),
+						contentTable: video.contentTable,
+						title: video.title,
+						transcript: video.transcript,
+						url: video.url,
+					},
+					flashCard: userVideo?.flashCard || [],
+					notes: userVideo?.notes || [],
+				};
+				res.status(StatusCodes.SUCCESS.code).json(videoData);
+			})
+			.catch((error) => {
+				if (error instanceof NotFoundError) {
+					res.status(StatusCodes.NOT_FOUND.code).json({
+						message: "Video not found",
+					});
+					return;
+				}
+				console.error(error);
+				res.status(StatusCodes.INTERNAL_SERVER_ERROR.code).json({
+					message: "Internal server error",
+				});
+			});
 	}
 }
 

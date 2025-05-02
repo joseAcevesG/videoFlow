@@ -45,3 +45,9 @@ export interface TranscriptItem {
 	end: number;
 	text: string;
 }
+
+export interface VideoPage {
+	flashCard: FlashCardItem[];
+	notes: UserNoteItem[];
+	video: Video;
+}

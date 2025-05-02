@@ -33,3 +33,15 @@ export const FlashcardPatchSchema = FlashcardSchema.partial().refine(
 		message: "At least one field (front or back) must be provided",
 	},
 );
+
+export const CreateQuizSchema = z.object({
+	start: z.number().nonnegative(),
+	end: z.number().nonnegative(),
+	type: z.enum(["multiple", "open"]),
+});
+
+export const ValidateAnswerSchema = z.object({
+	question: z.string(),
+	answer: z.string(),
+	userAnswer: z.string(),
+});

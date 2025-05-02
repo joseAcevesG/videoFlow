@@ -10,6 +10,7 @@ GET {{base_url}}
 
 
 
+
 ### AUTH ###
 ### login ###
 POST {{base_url}}/auth/login
@@ -30,6 +31,7 @@ POST {{base_url}}/auth/logout
 
 
 
+
 ### VIDEO ###
 ### process video ###
 POST {{base_url}}/video
@@ -45,6 +47,7 @@ Content-Type: application/json
 
 ### get video ###
 GET {{base_url}}/video/{{video_id}}
+
 
 
 
@@ -90,6 +93,7 @@ DELETE {{base_url}}/video/{{video_id}}/notes/{{note_id}}
 
 
 
+
 ### FLASHCARDS ###
 ### get user flashcards for specific video ###
 GET {{base_url}}/video/{{video_id}}/flashcards
@@ -129,3 +133,28 @@ Content-Type: application/json
 
 ### delete a flashcard for specific video of user ###
 DELETE {{base_url}}/video/{{video_id}}/flashcards/{{flashcard_id}}
+
+
+
+
+### QUIZ ###
+### create quiz for specific video of user ###
+# type: multiple or open
+POST {{base_url}}/video/{{video_id}}/quiz
+Content-Type: application/json
+
+{
+    "start": 0,
+    "end": 320,
+    "type": "multiple"
+}
+
+### validate answer ###
+POST {{base_url}}/video/{{video_id}}/quiz/validate
+Content-Type: application/json
+
+{
+    "answer": "Recharts and date-fns",
+		"userAnswer": "date-fns, recharts",
+		"question": "What two libraries are being installed for creating the dashboard charts?"
+}

@@ -32,7 +32,7 @@ POST {{base_url}}/video
 Content-Type: application/json
 
 {
-  "videoUrl": "https://www.youtube.com/watch?v=iP6XpLQM2Cs"
+  "videoUrl": "https://www.youtube.com/watch?v=15qMh8C1Wzo"
 }
 
 ### get all user videos ###

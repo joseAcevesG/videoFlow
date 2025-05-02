@@ -6,5 +6,6 @@ const router: Router = Router();
 
 router.post("/", VideoController.processVideo);
 router.get("/:videoID", VideoController.getVideo);
+router.get("/", VideoController.getAllUserVideos);
 
 export default router;

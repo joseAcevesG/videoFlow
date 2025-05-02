@@ -139,6 +139,7 @@ Generate the ContentTable JSON based on this transcript.`;
 			}
 		}
 	}
+
 	getVideo(req: UserRequest, res: Response) {
 		const videoId = req.params.videoID as string;
 
@@ -184,6 +185,40 @@ Generate the ContentTable JSON based on this transcript.`;
 					});
 					return;
 				}
+				console.error(error);
+				res.status(StatusCodes.INTERNAL_SERVER_ERROR.code).json({
+					message: "Internal server error",
+				});
+			});
+	}
+
+	getAllUserVideos(req: UserRequest, res: Response) {
+		if (!req.user?.userVideos) {
+			res.status(StatusCodes.NOT_FOUND.code).json({
+				message: "No videos found",
+			});
+			return;
+		}
+
+		const VideoPromises = req.user.userVideos.map((video) =>
+			videoModel.findOne({ _id: video.videoId }),
+		);
+
+		Promise.all(VideoPromises)
+			.then((videos) => {
+				if (!videos?.length) {
+					throw new NotFoundError("No videos found");
+				}
+
+				const userVideos = videos
+					.filter((video) => video !== null)
+					.map((video) => ({
+						id: video._id.toString(),
+						title: video.title,
+					}));
+				res.status(StatusCodes.SUCCESS.code).json(userVideos);
+			})
+			.catch((error) => {
 				console.error(error);
 				res.status(StatusCodes.INTERNAL_SERVER_ERROR.code).json({
 					message: "Internal server error",

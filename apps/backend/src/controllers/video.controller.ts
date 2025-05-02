@@ -7,7 +7,7 @@ import {
 	model,
 	transcriptPrompt,
 } from "../config/gemini.config";
-import { youtubeUrlSchema } from "../config/zod.config";
+import { YoutubeUrlSchema } from "../config/zod.config";
 import userModel from "../models/user.model";
 import videoModel from "../models/video.model";
 import type { GeminiResponse, UserRequest } from "../types";
@@ -22,7 +22,7 @@ class VideoController {
 		const { videoUrl } = req.body;
 
 		try {
-			const validatedUrl = youtubeUrlSchema.parse(videoUrl);
+			const validatedUrl = YoutubeUrlSchema.parse(videoUrl);
 			if (!validatedUrl) {
 				throw new BadRequestError("Invalid YouTube video URL");
 			}

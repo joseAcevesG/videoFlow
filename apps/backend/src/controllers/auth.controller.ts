@@ -3,7 +3,7 @@ import type { JwtPayload } from "jsonwebtoken";
 import { StytchError } from "stytch";
 import { EnvConfig } from "../config/env.config";
 import { stytchClient } from "../config/stytch.config";
-import { emailSchema } from "../config/zod.config";
+import { EmailSchema } from "../config/zod.config";
 import User from "../models/user.model";
 import StatusCodes from "../types/response-codes";
 import {
@@ -15,12 +15,12 @@ const cookieOptions: CookieOptions = {
 	httpOnly: true,
 	secure: EnvConfig().environment === "production",
 	sameSite: "strict" as const,
-	maxAge: 3 * 24 * 60 * 60 * 1000, // 3 days in milliseconds
+	maxAge: 3 * 24 * 60 * 60 * 1000,
 };
 
 class AuthController {
 	login(req: Request, res: Response) {
-		const result = emailSchema.safeParse(req.body);
+		const result = EmailSchema.safeParse(req.body);
 		if (!result.success) {
 			res
 				.status(StatusCodes.BAD_REQUEST.code)

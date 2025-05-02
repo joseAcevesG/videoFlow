@@ -2,6 +2,7 @@
 @token = 
 @email = 
 @video_id = 
+@note_id = 
 
 ### test api ###
 GET {{base_url}}
@@ -41,3 +42,44 @@ Content-Type: application/json
 
 ### get video ###
 GET {{base_url}}/video/{{video_id}}
+
+
+### NOTES ###
+### get notes for specific video of user ###
+GET {{base_url}}/video/{{video_id}}/notes
+Content-Type: application/json
+
+### get note of specific video of user ###
+GET {{base_url}}/video/{{video_id}}/notes/{{note_id}}
+Content-Type: application/json
+
+### create note for specific video of user ###
+POST {{base_url}}/video/{{video_id}}/notes
+Content-Type: application/json
+
+{
+    "note": {
+      "moment": 10,
+      "text": "This is a note for the beginning of the video"
+    }
+}
+
+### patch a note for specific video of user ###
+PATCH {{base_url}}/video/{{video_id}}/notes/{{note_id}}
+Content-Type: application/json
+
+{
+  "moment": 100
+}
+
+### update a note for specific video of user ###
+PUT {{base_url}}/video/{{video_id}}/notes/{{note_id}}
+Content-Type: application/json
+
+{
+  "moment": 0,
+  "text": "This is a note for the beginning of the video"
+}
+
+### delete a note for specific video of user ###
+DELETE {{base_url}}/video/{{video_id}}/notes/{{note_id}}

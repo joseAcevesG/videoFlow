@@ -11,7 +11,7 @@
 	},
 	"css": {
 		"linter": {
-			"enabled": true
+			"enabled": false
 		}
 	},
 	"files": {

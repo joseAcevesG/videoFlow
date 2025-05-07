@@ -1,6 +1,7 @@
 {
 	"extends": "../../tsconfig.json",
 	"compilerOptions": {
+		"baseUrl": "./",
 		"lib": ["dom", "dom.iterable", "esnext"],
 		"allowJs": true,
 		"noEmit": true,
@@ -12,6 +13,12 @@
 				"name": "next"
 			}
 		],
+		"paths": {
+			"@/*": ["./src/*"],
+			"@app/*": ["./src/app/*"],
+			"@components/*": ["./src/components/*"],
+			"@lib/*": ["./src/lib/*"]
+		},
 		"incremental": true
 	},
 

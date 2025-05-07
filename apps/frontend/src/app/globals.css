@@ -1,50 +1,81 @@
-/* 1. Bootstrap Tailwind’s engine */
+/* 1. Import Tailwind’s engine (replaces @tailwind base/components/utilities) */
 @import "tailwindcss";
 
-/* 2. Declare design tokens in one place */
-@theme {
-	/* Color tokens */
-	--color-border: hsl(var(--border));
-	--color-input: hsl(var(--input));
-	--color-ring: hsl(var(--ring));
-	--color-background: hsl(var(--background));
-	--color-foreground: hsl(var(--foreground));
-	--color-primary: hsl(var(--primary));
-	--color-primary-foreground: hsl(var(--primary-foreground));
-	--color-secondary: hsl(var(--secondary));
-	--color-secondary-foreground: hsl(var(--secondary-foreground));
-	--color-destructive: hsl(var(--destructive));
-	--color-destructive-foreground: hsl(var(--destructive-foreground));
-	--color-muted: hsl(var(--muted));
-	--color-muted-foreground: hsl(var(--muted-foreground));
-	--color-accent: hsl(var(--accent));
-	--color-accent-foreground: hsl(var(--accent-foreground));
-	--color-card: hsl(var(--card));
-	--color-card-foreground: hsl(var(--card-foreground));
+/* 2. (Optional) Explicit content sources—only if you need to include files outside of Tailwind’s automatic detection */
+@source "./src/pages/**/*.{ts,tsx}";
+@source "./src/components/**/*.{ts,tsx}";
+@source "./src/app/**/*.{ts,tsx}";
 
-	/* Border-radius tokens */
-	--radius-lg: var(--radius);
-	--radius-md: calc(var(--radius) - 2px);
-	--radius-sm: calc(var(--radius) - 4px);
+/* 3. CSS-first configuration of design tokens (colors, radii, etc.) */
+@theme {
+	/* Border radius token */
+	--radius: 0.5rem;
+
+	/* Color palette tokens (namespace: --color-*) */
+	--color-background: 0 0% 100%;
+	--color-foreground: 224 71.4% 4.1%;
+	--color-card: 0 0% 100%;
+	--color-card-foreground: 224 71.4% 4.1%;
+	--color-popover: 0 0% 100%;
+	--color-popover-foreground: 224 71.4% 4.1%;
+	--color-primary: 220.9 39.3% 11%;
+	--color-primary-foreground: 210 20% 98%;
+	--color-secondary: 220 14.3% 95.9%;
+	--color-secondary-foreground: 220.9 39.3% 11%;
+	--color-muted: 220 14.3% 95.9%;
+	--color-muted-foreground: 220 8.9% 46.1%;
+	--color-accent: 220 14.3% 95.9%;
+	--color-accent-foreground: 220.9 39.3% 11%;
+	--color-destructive: 0 84.2% 60.2%;
+	--color-destructive-foreground: 210 20% 98%;
+	--color-border: 220 13% 91%;
+	--color-input: 220 13% 91%;
+	--color-ring: 224 71.4% 4.1%;
 }
 
-/* 3. Dark-mode overrides via the .dark class */
+/* 4. Use class-based dark mode (replaces `darkMode: ["class"]`) */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* 5. Base layer: your CSS variables overrides and global resets */
 @layer base {
+	:root {
+		/* These variables come from @theme; feel free to add extra CSS-only vars here */
+	}
 	.dark {
-		--border: 217 26% 17%;
-		--input: 217 26% 17%;
-		--ring: 217 26% 17%;
-		--background: 0 0% 10%;
-		--foreground: 0 0% 100%;
-		--primary: 240 80% 60%;
-		--primary-foreground: 0 0% 100%;
-		--secondary: 260 80% 60%;
-		--secondary-foreground: 0 0% 100%;
-		/* add any other dark tokens here */
+		/* Dark overrides matching your original JS config */
+		--background: 224 71.4% 4.1%;
+		--foreground: 210 20% 98%;
+		--card: 224 71.4% 4.1%;
+		--card-foreground: 210 20% 98%;
+		--popover: 224 71.4% 4.1%;
+		--popover-foreground: 210 20% 98%;
+		--primary: 210 20% 98%;
+		--primary-foreground: 220.9 39.3% 11%;
+		--secondary: 215 27.9% 16.9%;
+		--secondary-foreground: 210 20% 98%;
+		--muted: 215 27.9% 16.9%;
+		--muted-foreground: 217.9 10.6% 64.9%;
+		--accent: 215 27.9% 16.9%;
+		--accent-foreground: 210 20% 98%;
+		--destructive: 0 62.8% 30.6%;
+		--destructive-foreground: 210 20% 98%;
+		--border: 215 27.9% 16.9%;
+		--input: 215 27.9% 16.9%;
+		--ring: 216 12.2% 83.9%;
+	}
+
+	/* Global border reset and box-sizing */
+	* {
+		@apply border-border;
+		box-sizing: border-box;
+	}
+	body {
+		@apply bg-background text-foreground;
+		font-feature-settings: "rlig" 1, "calt" 1;
 	}
 }
 
-/* 4. Custom keyframes & animation utilities */
+/* 6. Utilities layer: custom keyframes & animations */
 @layer utilities {
 	@keyframes accordion-down {
 		from {

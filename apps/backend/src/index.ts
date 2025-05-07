@@ -12,7 +12,7 @@ const port = EnvConfig().port;
 
 const nextApp = next({
 	dev,
-	dir: path.join(__dirname, "../../../", "frontend"),
+	dir: path.join(__dirname, "../../", "frontend"),
 });
 const handle = nextApp.getRequestHandler();
 async function startServer() {

@@ -21,7 +21,16 @@
 			"outputs": []
 		},
 		"start": {
-			"cache": false
+			"cache": false,
+			"passThroughEnv": [
+				"BACKEND_PORT",
+				"STYTCH_PROJECT_ID",
+				"STYTCH_SECRET",
+				"DB_URL",
+				"TOKEN_KEY",
+				"GEMINI_API_KEY",
+				"API_URL"
+			]
 		}
 	}
 }

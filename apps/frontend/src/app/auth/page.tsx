@@ -85,7 +85,7 @@ export default function AuthPage() {
 			setError(
 				err instanceof Error
 					? err.message
-					: "An error occurred. Please try again."
+					: "An error occurred. Please try again.",
 			);
 		} finally {
 			setIsLoading(false);

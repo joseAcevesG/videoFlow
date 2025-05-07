@@ -29,8 +29,8 @@ const ShortAnswerQuiz: React.FC<ShortAnswerQuizProps> = ({
 				className="w-full h-32 p-2 border rounded-md"
 				onChange={(e) => onChangeAnswer(e.target.value)}
 				placeholder="Type your answer here..."
-				value={selectedAnswer || ""}
 				readOnly={isAnswer}
+				value={selectedAnswer || ""}
 			/>
 			<div className="flex gap-2">
 				{!showAnswer ? (

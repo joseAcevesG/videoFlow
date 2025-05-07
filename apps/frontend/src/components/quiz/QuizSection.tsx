@@ -87,8 +87,8 @@ const QuizSection: React.FC = () => {
 					/>
 				) : (
 					<ShortAnswerQuiz
-						isAnswer={isAnswer}
 						currentQuestion={currentQuestion as QuizOpenItem}
+						isAnswer={isAnswer}
 						onChangeAnswer={handleAnswerSelect}
 						onSubmitAnswer={handleShortAnswerSubmit}
 						selectedAnswer={selectedAnswer}

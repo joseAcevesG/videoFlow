@@ -19,7 +19,7 @@ export default function AuthenticateContent() {
 
 			try {
 				const response = await fetch(
-					`/api/auth/authenticate?token=${token}&stytch_token_type=${tokenType}`
+					`/api/auth/authenticate?token=${token}&stytch_token_type=${tokenType}`,
 				);
 
 				if (!response.ok) {

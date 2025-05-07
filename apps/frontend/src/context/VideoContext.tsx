@@ -22,7 +22,7 @@ export interface VideoContextProps {
 }
 
 export const VideoContext = createContext<VideoContextProps | undefined>(
-	undefined
+	undefined,
 );
 
 // Custom hook has been moved to useVideoContext.ts

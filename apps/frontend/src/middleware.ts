@@ -1,5 +1,4 @@
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 
 export async function middleware(request: NextRequest) {
 	console.log(`[Route] ${request.method} ${request.nextUrl.pathname}`);
@@ -18,7 +17,7 @@ export async function middleware(request: NextRequest) {
 		console.log(
 			`[Auth] Checking authentication for ${request.nextUrl.pathname}`,
 		);
-		const apiUrl = process.env.API_URL || request.nextUrl.origin;
+		const apiUrl = process.env.NEXT_PUBLIC_API_URL || request.nextUrl.origin;
 		const response = await fetch(`${apiUrl}/api/auth/status`, {
 			credentials: "include",
 			headers: {

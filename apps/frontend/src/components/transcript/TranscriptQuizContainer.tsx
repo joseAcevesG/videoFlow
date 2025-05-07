@@ -20,7 +20,7 @@ const TranscriptQuizContainer: React.FC<TranscriptQuizContainerProps> = ({
 	return (
 		<Card
 			className={
-				"transition-all duration-200 h-full w-full max-h-[400px] overflow-auto hover:-translate-y-1 hover:bg-background/40"
+				"transition-all duration-200 h-full w-full max-h-60 overflow-auto hover:-translate-y-1 hover:bg-background/40"
 			}
 		>
 			{/* Global error display */}

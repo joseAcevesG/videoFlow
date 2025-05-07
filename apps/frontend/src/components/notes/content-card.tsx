@@ -17,7 +17,7 @@ const ContentCard = () => {
 	};
 
 	return (
-		<Card className="transition-all duration-200 hover:-translate-y-1 hover:bg-background/40 group">
+		<Card className="transition-all duration-200 hover:-translate-y-1 hover:bg-background/40 group w-full h-full overflow-auto pt-1">
 			<CardHeader className="pb-2 flex flex-row items-center justify-between">
 				<CardTitle className="group-hover:text-primary group-hover:brightness-125">
 					Content Overview

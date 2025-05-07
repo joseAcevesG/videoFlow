@@ -12,9 +12,9 @@
 	--radius: 0.5rem;
 
 	/* Color palette tokens (namespace: --color-*) */
-	--color-background: 0 0% 100%;
+	--color-background: #f2f6fc;
 	--color-foreground: 224 71.4% 4.1%;
-	--color-card: 0 0% 100%;
+	--color-card: #f2f6fc;
 	--color-card-foreground: 224 71.4% 4.1%;
 	--color-popover: 0 0% 100%;
 	--color-popover-foreground: 224 71.4% 4.1%;
@@ -42,26 +42,25 @@
 		/* These variables come from @theme; feel free to add extra CSS-only vars here */
 	}
 	.dark {
-		/* Dark overrides matching your original JS config */
-		--background: 224 71.4% 4.1%;
-		--foreground: 210 20% 98%;
-		--card: 224 71.4% 4.1%;
-		--card-foreground: 210 20% 98%;
-		--popover: 224 71.4% 4.1%;
-		--popover-foreground: 210 20% 98%;
-		--primary: 210 20% 98%;
-		--primary-foreground: 220.9 39.3% 11%;
-		--secondary: 215 27.9% 16.9%;
-		--secondary-foreground: 210 20% 98%;
-		--muted: 215 27.9% 16.9%;
-		--muted-foreground: 217.9 10.6% 64.9%;
-		--accent: 215 27.9% 16.9%;
-		--accent-foreground: 210 20% 98%;
-		--destructive: 0 62.8% 30.6%;
-		--destructive-foreground: 210 20% 98%;
-		--border: 215 27.9% 16.9%;
-		--input: 215 27.9% 16.9%;
-		--ring: 216 12.2% 83.9%;
+		--color-background: #101828;
+		--color-foreground: 210 20% 98%;
+		--color-card: #1e2939;
+		--color-card-foreground: 210 20% 98%;
+		--color-popover: 215 28% 17%;
+		--color-popover-foreground: 210 20% 98%;
+		--color-primary: 210 20% 98%;
+		--color-primary-foreground: 220.9 39.3% 11%;
+		--color-secondary: 215 27.9% 16.9%;
+		--color-secondary-foreground: 210 20% 98%;
+		--color-muted: 215 27.9% 16.9%;
+		--color-muted-foreground: 217.9 10.6% 64.9%;
+		--color-accent: 215 27.9% 16.9%;
+		--color-accent-foreground: 210 20% 98%;
+		--color-destructive: 0 62.8% 30.6%;
+		--color-destructive-foreground: 210 20% 98%;
+		--color-border: 215 27.9% 16.9%;
+		--color-input: 215 27.9% 16.9%;
+		--color-ring: 216 12.2% 83.9%;
 	}
 
 	/* Global border reset and box-sizing */

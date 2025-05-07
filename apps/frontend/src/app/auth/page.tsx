@@ -93,8 +93,8 @@ export default function AuthPage() {
 	};
 
 	return (
-		<div className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-gray-900 p-4">
-			<Card className="w-full max-w-md dark:bg-gray-800 dark:text-white">
+		<div className="flex min-h-screen items-center justify-center  p-4">
+			<Card className="w-full max-w-md">
 				<CardHeader className="flex justify-between items-center">
 					<div>
 						<CardTitle>Welcome to DonsFlow</CardTitle>

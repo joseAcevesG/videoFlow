@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import type React from "react";
 import { useEffect, useState } from "react";
 
@@ -19,29 +20,9 @@ export default function YouTubePage() {
 	const router = useRouter();
 	const [url, setUrl] = useState("");
 	const [error, setError] = useState("");
-	const [isDarkMode, setIsDarkMode] = useState(false);
 	const [videos, setVideos] = useState<{ id: string; title: string }[]>([]);
 	const [loading, setLoading] = useState(true);
 	const [isSubmitting, setIsSubmitting] = useState(false);
-
-	// Handle theme switching based on the isDarkMode state
-	useEffect(() => {
-		if (isDarkMode) {
-			document.documentElement.classList.add("dark");
-			localStorage.setItem("theme", "dark");
-		} else {
-			document.documentElement.classList.remove("dark");
-			localStorage.setItem("theme", "light");
-		}
-	}, [isDarkMode]);
-
-	// Check localStorage for user preference on initial load
-	useEffect(() => {
-		const savedTheme = localStorage.getItem("theme");
-		if (savedTheme === "dark") {
-			setIsDarkMode(true);
-		}
-	}, []);
 
 	// Fetch previously watched videos
 	useEffect(() => {
@@ -87,8 +68,8 @@ export default function YouTubePage() {
 	};
 
 	return (
-		<div className="h-svh py-8 px-4 dark:bg-gray-900">
-			<Card className="max-w-3xl mx-auto dark:bg-gray-800 dark:text-white py-4">
+		<div className="h-svh py-8 px-4">
+			<Card className="max-w-3xl mx-auto py-4">
 				<CardHeader className="flex justify-between items-center">
 					<div>
 						<CardTitle>YouTube Video Player</CardTitle>
@@ -121,7 +102,7 @@ export default function YouTubePage() {
 				</CardContent>
 			</Card>
 
-			<Card className="max-w-3xl mx-auto mt-6 py-4 dark:bg-gray-800 dark:text-white">
+			<Card className="max-w-3xl mx-auto mt-6 py-4">
 				<CardHeader>
 					<CardTitle>Previously Visited Videos</CardTitle>
 				</CardHeader>
@@ -132,12 +113,12 @@ export default function YouTubePage() {
 						<ul>
 							{videos.map((video: { title: string; id: string }) => (
 								<li className="mb-4" key={video.id}>
-									<a
+									<Link
 										className="text-blue-500 hover:underline"
 										href={`/video/${video.id}`}
 									>
 										{video.title}
-									</a>
+									</Link>
 								</li>
 							))}
 						</ul>

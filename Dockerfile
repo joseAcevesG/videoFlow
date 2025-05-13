@@ -20,10 +20,11 @@ COPY --from=prod-deps /app/apps/backend/node_modules /app/apps/backend/node_modu
 
 # get node_modules from build
 COPY --from=build /app/node_modules /app/node_modules
+# packages shared
+COPY --from=build /app/packages/shared/dist /app/packages/shared/dist
 # frontend artifacts
 COPY --from=build /app/apps/frontend/public /app/apps/frontend/public
 COPY --from=build /app/apps/frontend/.next /app/apps/frontend/.next
-
 # backend artifacts
 COPY --from=build /app/apps/backend/dist /app/apps/backend/dist
 

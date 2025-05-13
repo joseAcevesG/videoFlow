@@ -16,8 +16,7 @@ const cookieOptions = {
 };
 
 const REFRESH_TOKEN_EXPIRATION = 7 * 24 * 60 * 60 * 1000; // 7 days
-// const ACCESS_TOKEN_EXPIRATION = 15 * 60 * 1000; // 15 minutes
-const ACCESS_TOKEN_EXPIRATION = 3 * 1000; // 3 seconds
+const ACCESS_TOKEN_EXPIRATION = 15 * 60 * 1000; // 15 minutes
 
 /**
  * Verifies an access token and retrieves the associated user.

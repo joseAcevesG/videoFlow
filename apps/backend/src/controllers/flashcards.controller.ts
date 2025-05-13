@@ -1,8 +1,7 @@
-import type { Response } from "express";
+import type { Request, Response } from "express";
 import { Types } from "mongoose";
-import { FlashcardPatchSchema, FlashcardSchema } from "../config/zod.config";
 import userModel from "../models/user.model";
-import type { UserRequest } from "../types";
+import { FlashcardPatchSchema, FlashcardSchema } from "../schemas/user.schema";
 import StatusCodes from "../types/response-codes";
 import { NotFoundError } from "../utils/errors";
 import { validateUserAndVideo } from "../utils/validate_video_and_user";
@@ -13,10 +12,10 @@ import { validateUserAndVideo } from "../utils/validate_video_and_user";
 class FlashcardsController {
 	/**
 	 * Get flashcards of a specific User and Video
-	 * @param {UserRequest} req
+	 * @param {Request} req
 	 * @param {Response} res
 	 */
-	readAll(req: UserRequest, res: Response) {
+	readAll(req: Request, res: Response) {
 		const videoId = req.params.videoID as string;
 		if (!req.user) {
 			res.status(StatusCodes.UNAUTHORIZED.code).json({
@@ -41,10 +40,10 @@ class FlashcardsController {
 
 	/**
 	 * Get flashcard of a specific User and Video
-	 * @param {UserRequest} req
+	 * @param {Request} req
 	 * @param {Response} res
 	 */
-	readOne(req: UserRequest, res: Response) {
+	readOne(req: Request, res: Response) {
 		const videoId = req.params.videoID as string;
 		const flashcardId = req.params.id as string;
 
@@ -80,10 +79,10 @@ class FlashcardsController {
 
 	/**
 	 * Create flashcard of a specific User and Video
-	 * @param {UserRequest} req
+	 * @param {Request} req
 	 * @param {Response} res
 	 */
-	create(req: UserRequest, res: Response) {
+	create(req: Request, res: Response) {
 		const videoId = req.params.videoID as string;
 		const { flashcard } = req.body;
 		const uuid = new Types.ObjectId();
@@ -119,7 +118,7 @@ class FlashcardsController {
 
 		userModel
 			.findOneAndUpdate(
-				{ _id: req.user.id },
+				{ _id: req.user._id },
 				{ userVideos: req.user.userVideos },
 				{ new: true },
 			)
@@ -145,10 +144,10 @@ class FlashcardsController {
 
 	/**
 	 * Update flashcard of a specific User and Video
-	 * @param {UserRequest} req
+	 * @param {Request} req
 	 * @param {Response} res
 	 */
-	patch(req: UserRequest, res: Response) {
+	patch(req: Request, res: Response) {
 		const videoId = req.params.videoID as string;
 		const flashcardId = req.params.id as string;
 		const { front, back } = req.body;
@@ -199,7 +198,7 @@ class FlashcardsController {
 
 		userModel
 			.findOneAndUpdate(
-				{ _id: req.user.id },
+				{ _id: req.user._id },
 				{ userVideos: req.user.userVideos },
 				{ new: true },
 			)
@@ -225,10 +224,10 @@ class FlashcardsController {
 
 	/**
 	 * Update flashcard of a specific User and Video
-	 * @param {UserRequest} req
+	 * @param {Request} req
 	 * @param {Response} res
 	 */
-	update(req: UserRequest, res: Response) {
+	update(req: Request, res: Response) {
 		const videoId = req.params.videoID as string;
 		const flashcardId = req.params.id as string;
 		const { front, back } = req.body;
@@ -283,7 +282,7 @@ class FlashcardsController {
 
 		userModel
 			.findOneAndUpdate(
-				{ _id: req.user.id },
+				{ _id: req.user._id },
 				{ userVideos: req.user.userVideos },
 				{ new: true },
 			)
@@ -309,10 +308,10 @@ class FlashcardsController {
 
 	/**
 	 * Delete flashcard of a specific User and Video
-	 * @param {UserRequest} req
+	 * @param {Request} req
 	 * @param {Response} res
 	 */
-	delete(req: UserRequest, res: Response) {
+	delete(req: Request, res: Response) {
 		const videoId = req.params.videoID as string;
 		const flashcardId = req.params.id as string;
 
@@ -348,7 +347,7 @@ class FlashcardsController {
 
 		userModel
 			.findOneAndUpdate(
-				{ _id: req.user.id },
+				{ _id: req.user._id },
 				{ userVideos: req.user.userVideos },
 				{ new: true },
 			)

@@ -1,6 +1,7 @@
 @base_url = http://localhost:4000/api
 @token = 
-@email = 
+@mail = 
+@password = 
 @video_id = 
 @note_id = 
 @flashcard_id = 
@@ -12,22 +13,65 @@ GET {{base_url}}
 
 
 ### AUTH ###
-### login ###
+### sign up ###
+POST {{base_url}}/auth/signup
+Content-Type: application/json
+
+{
+    "email": "{{mail}}",
+    "type": "password_login",
+    "password": "{{password}}"
+}
+
+### login magic link ###
 POST {{base_url}}/auth/login
 Content-Type: application/json
 
 {
-    "email": "{{email}}"
+    "email": "{{mail}}",
+    "type": "magic_links"
 }
 
-### authenticate ###
-GET {{base_url}}/auth/authenticate?stytch_token_type=magic_links&token={{token}}
+### login password login ###
+POST {{base_url}}/auth/login
+Content-Type: application/json
+
+{
+    "email": "{{mail}}",
+    "type": "password_login",
+    "password": "{{password}}"
+}
+
+### reset password ###
+POST {{base_url}}/auth/reset-password
+Content-Type: application/json
+
+{
+    "email": "{{mail}}"
+}
+
+### authenticate magic link ###
+POST {{base_url}}/auth/authenticate?stytch_token_type=magic_links&token={{token}}
+
+### authenticate login ###
+POST {{base_url}}/auth/authenticate?stytch_token_type=login&token={{token}}
+
+### authenticate password reset ###
+POST {{base_url}}/auth/authenticate?stytch_token_type=reset_password&token={{token}}
+Content-Type: application/json
+
+{
+    "password": "{{password}}"
+}
 
 ### status ###
 GET {{base_url}}/auth/status
 
 ### logout ###
 POST {{base_url}}/auth/logout
+
+### logout all ###
+POST {{base_url}}/auth/logout-all
 
 
 

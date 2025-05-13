@@ -9,10 +9,7 @@
 		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true,
 		"resolveJsonModule": true,
-		"composite": true,
-		"paths": {
-			"@shared/*": ["packages/shared/src/*"]
-		}
+		"composite": true
 	},
 	"files": [],
 	"references": [

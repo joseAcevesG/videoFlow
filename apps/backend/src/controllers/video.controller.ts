@@ -1,16 +1,16 @@
 import type { GenerateContentResult } from "@google/generative-ai";
-import type { ContentTableItem, VideoPage } from "@shared/types";
-import type { Response } from "express";
+import type { Request, Response } from "express";
 import { Types } from "mongoose";
+import type { ContentTableItem, VideoPage } from "shared";
 import {
 	generationConfig,
 	model,
 	transcriptPrompt,
 } from "../config/gemini.config";
-import { YoutubeUrlSchema } from "../config/zod.config";
 import userModel from "../models/user.model";
 import videoModel from "../models/video.model";
-import type { GeminiResponse, UserRequest } from "../types";
+import { YoutubeUrlSchema } from "../schemas/youtube.schema";
+import type { GeminiResponse } from "../types";
 import StatusCodes from "../types/response-codes";
 import { BadRequestError, NotFoundError } from "../utils/errors";
 import { getVideoTitle } from "../utils/get_video_title";
@@ -18,7 +18,7 @@ import { fetchTranscript, formatTranscript } from "../utils/transcript";
 import { validateUserAndVideo } from "../utils/validate_video_and_user";
 
 class VideoController {
-	async processVideo(req: UserRequest, res: Response) {
+	async processVideo(req: Request, res: Response) {
 		const { videoUrl } = req.body;
 
 		try {
@@ -140,7 +140,7 @@ Generate the ContentTable JSON based on this transcript.`;
 		}
 	}
 
-	getVideo(req: UserRequest, res: Response) {
+	getVideo(req: Request, res: Response) {
 		const videoId = req.params.videoID as string;
 
 		if (!req.user) {
@@ -192,7 +192,7 @@ Generate the ContentTable JSON based on this transcript.`;
 			});
 	}
 
-	getAllUserVideos(req: UserRequest, res: Response) {
+	getAllUserVideos(req: Request, res: Response) {
 		if (!req.user?.userVideos) {
 			res.status(StatusCodes.NOT_FOUND.code).json({
 				message: "No videos found",

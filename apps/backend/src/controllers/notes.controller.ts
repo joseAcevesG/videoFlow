@@ -1,14 +1,13 @@
-import type { Response } from "express";
+import type { Request, Response } from "express";
 import { Types } from "mongoose";
-import { NotePatchSchema, NoteSchema } from "../config/zod.config";
 import userModel from "../models/user.model";
-import type { UserRequest } from "../types";
+import { NotePatchSchema, NoteSchema } from "../schemas/user.schema";
 import StatusCodes from "../types/response-codes";
 import { NotFoundError } from "../utils/errors";
 import { validateUserAndVideo } from "../utils/validate_video_and_user";
 
 class NotesController {
-	readAll(req: UserRequest, res: Response) {
+	readAll(req: Request, res: Response) {
 		const videoId = req.params.videoID as string;
 		if (!req.user) {
 			res.status(StatusCodes.UNAUTHORIZED.code).json({
@@ -30,7 +29,7 @@ class NotesController {
 		res.status(StatusCodes.SUCCESS.code).json(notes);
 	}
 
-	readOne(req: UserRequest, res: Response) {
+	readOne(req: Request, res: Response) {
 		const videoId = req.params.videoID as string;
 		const noteId = req.params.id as string;
 
@@ -62,7 +61,7 @@ class NotesController {
 		res.status(StatusCodes.SUCCESS.code).json(note);
 	}
 
-	create(req: UserRequest, res: Response) {
+	create(req: Request, res: Response) {
 		const videoId = req.params.videoID as string;
 		const { note } = req.body;
 
@@ -97,7 +96,7 @@ class NotesController {
 
 		userModel
 			.findOneAndUpdate(
-				{ _id: req.user.id },
+				{ _id: req.user._id },
 				{ userVideos: req.user.userVideos },
 				{ new: true },
 			)
@@ -123,7 +122,7 @@ class NotesController {
 			});
 	}
 
-	patch(req: UserRequest, res: Response) {
+	patch(req: Request, res: Response) {
 		const videoId = req.params.videoID as string;
 		const noteId = req.params.id as string;
 		const { moment, text } = req.body;
@@ -171,7 +170,7 @@ class NotesController {
 
 		userModel
 			.findOneAndUpdate(
-				{ _id: req.user.id },
+				{ _id: req.user._id },
 				{ userVideos: req.user.userVideos },
 				{ new: true },
 			)
@@ -196,7 +195,7 @@ class NotesController {
 			});
 	}
 
-	update(req: UserRequest, res: Response) {
+	update(req: Request, res: Response) {
 		const videoId = req.params.videoID as string;
 		const noteId = req.params.id as string;
 		const { moment, text } = req.body;
@@ -248,7 +247,7 @@ class NotesController {
 
 		userModel
 			.findOneAndUpdate(
-				{ _id: req.user.id },
+				{ _id: req.user._id },
 				{ userVideos: req.user.userVideos },
 				{ new: true },
 			)
@@ -273,7 +272,7 @@ class NotesController {
 			});
 	}
 
-	delete(req: UserRequest, res: Response) {
+	delete(req: Request, res: Response) {
 		const videoId = req.params.videoID as string;
 		const noteId = req.params.id as string;
 
@@ -306,7 +305,7 @@ class NotesController {
 
 		userModel
 			.findOneAndUpdate(
-				{ _id: req.user.id },
+				{ _id: req.user._id },
 				{ userVideos: req.user.userVideos },
 				{ new: true },
 			)

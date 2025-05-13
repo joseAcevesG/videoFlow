@@ -1,4 +1,4 @@
-import type { TranscriptItem } from "@shared/types";
+import type { TranscriptItem } from "shared";
 import { Innertube } from "youtubei.js";
 
 export const fetchTranscript = async (youTubeId: string) => {

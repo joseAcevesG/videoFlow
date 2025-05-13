@@ -3,7 +3,9 @@
 	"compilerOptions": {
 		"module": "ESNext",
 		"declaration": true,
-		"declarationMap": true
+		"declarationMap": true,
+		"outDir": "./dist",
+		"rootDir": "./src"
 	},
 	"include": ["src"]
 }

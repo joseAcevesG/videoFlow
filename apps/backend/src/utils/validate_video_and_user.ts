@@ -1,4 +1,4 @@
-import type { User as UserType, UserVideosItem } from "@shared/types";
+import type { User as UserType, UserVideosItem } from "shared";
 
 export function validateUserAndVideo(
 	user: UserType,

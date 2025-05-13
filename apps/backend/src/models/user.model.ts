@@ -46,6 +46,10 @@ const userSchema = new Schema({
 			],
 		},
 	],
+	token_version: {
+		type: Number,
+		default: 0,
+	},
 });
 
 export default model("User", userSchema);

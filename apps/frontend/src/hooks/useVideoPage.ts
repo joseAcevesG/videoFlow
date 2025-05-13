@@ -18,7 +18,9 @@ export function useVideoPage() {
 		const fetchVideoPage = async () => {
 			try {
 				setIsLoading(true);
-				const response = await fetch(`/api/video/${id}`);
+				const response = await fetch(`/api/video/${id}`, {
+					credentials: "include",
+				});
 				if (!response.ok) throw new Error("Failed to fetch video page data");
 				const data: VideoPageType = await response.json();
 				setVideoPageData(data);

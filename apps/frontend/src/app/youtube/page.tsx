@@ -26,7 +26,9 @@ export default function YouTubePage() {
 
 	// Fetch previously watched videos
 	useEffect(() => {
-		fetch("/api/video")
+		fetch("/api/video", {
+			credentials: "include",
+		})
 			.then((response) => response.json())
 			.then((data) => {
 				setVideos(data);
@@ -47,6 +49,7 @@ export default function YouTubePage() {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
+				credentials: "include",
 			},
 			body: JSON.stringify({ videoUrl: url }),
 		})

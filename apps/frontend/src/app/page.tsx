@@ -23,7 +23,9 @@ export default function Home() {
 	useEffect(() => {
 		const checkAuth = async () => {
 			try {
-				const response = await fetch("/api/auth/status");
+				const response = await fetch("/api/auth/status", {
+					credentials: "include",
+				});
 
 				if (!response.ok) {
 					throw new Error("Failed to fetch user status");
@@ -48,7 +50,9 @@ export default function Home() {
 
 	const handleLogout = async () => {
 		try {
-			await fetch("/api/auth/logout");
+			await fetch("/api/auth/logout", {
+				credentials: "include",
+			});
 			router.push("/auth");
 		} catch (err) {
 			setError(err instanceof Error ? err.message : "Failed to logout");

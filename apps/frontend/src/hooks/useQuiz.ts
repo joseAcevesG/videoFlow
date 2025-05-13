@@ -41,7 +41,10 @@ export function useQuiz() {
 				`/api/video/${videoPageData.video.id}/quiz`,
 				{
 					method: "POST",
-					headers: { "Content-Type": "application/json" },
+					headers: {
+						"Content-Type": "application/json",
+						credentials: "include",
+					},
 					body: JSON.stringify({
 						start: 0,
 						end: currentTime,
@@ -95,7 +98,10 @@ export function useQuiz() {
 				`/api/video/${videoPageData.video.id}/quiz/validate`,
 				{
 					method: "POST",
-					headers: { "Content-Type": "application/json" },
+					headers: {
+						"Content-Type": "application/json",
+						credentials: "include",
+					},
 					body: JSON.stringify({
 						answer: quizData.quiz[currentQuestionIndex].answer,
 						userAnswer: selectedAnswer,

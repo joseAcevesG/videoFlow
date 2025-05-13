@@ -64,6 +64,7 @@ export default function AuthPage() {
 			const response = await fetch("/api/auth/login", {
 				method: "POST",
 				headers: {
+					credentials: "include",
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify({

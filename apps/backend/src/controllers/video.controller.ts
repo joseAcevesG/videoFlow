@@ -200,16 +200,17 @@ Generate the ContentTable JSON based on this transcript.`;
 			return;
 		}
 
+		if (req.user.userVideos.length === 0) {
+			res.json([]);
+			return;
+		}
+
 		const VideoPromises = req.user.userVideos.map((video) =>
 			videoModel.findOne({ _id: video.videoId }),
 		);
 
 		Promise.all(VideoPromises)
 			.then((videos) => {
-				if (!videos?.length) {
-					throw new NotFoundError("No videos found");
-				}
-
 				const userVideos = videos
 					.filter((video) => video !== null)
 					.map((video) => ({

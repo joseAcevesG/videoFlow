@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { AlertCircle, Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
+import { authTypes } from "shared/auth-types";
 import { z } from "zod";
 
 const emailSchema = z.object({
@@ -62,12 +63,13 @@ export default function AuthPage() {
 
 			const response = await fetch("/api/auth/login", {
 				method: "POST",
-				credentials: "include",
 				headers: {
 					"Content-Type": "application/json",
-					Cookie: document.cookie,
 				},
-				body: JSON.stringify({ email: validationResult.data.email }),
+				body: JSON.stringify({
+					email: validationResult.data.email,
+					type: authTypes.magicLink,
+				}),
 			});
 
 			if (!response.ok) {
@@ -85,7 +87,7 @@ export default function AuthPage() {
 			setError(
 				err instanceof Error
 					? err.message
-					: "An error occurred. Please try again.",
+					: "An error occurred. Please try again."
 			);
 		} finally {
 			setIsLoading(false);

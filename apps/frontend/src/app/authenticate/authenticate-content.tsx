@@ -20,6 +20,12 @@ export default function AuthenticateContent() {
 			try {
 				const response = await fetch(
 					`/api/auth/authenticate?token=${token}&stytch_token_type=${tokenType}`,
+					{
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+						},
+					}
 				);
 
 				if (!response.ok) {

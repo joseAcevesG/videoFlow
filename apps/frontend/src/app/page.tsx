@@ -52,6 +52,7 @@ export default function Home() {
 		try {
 			await fetch("/api/auth/logout", {
 				credentials: "include",
+				method: "POST",
 			});
 			router.push("/auth");
 		} catch (err) {
